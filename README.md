@@ -18,7 +18,8 @@ Ele integra:
 - **Visualização de demandas** com datas de execução, responsáveis, descrições, links e caminhos de cada tarefa.  
 - **Matriz de prioridade** para organizar e destacar tarefas críticas.  
 - **Cards inteligentes**, que se atualizam automaticamente conforme o dia atual.  
-- **Histórico de execuções**, incluindo gravações ou registros de cada demanda.  
+- **Histórico de execuções**, incluindo gravações ou registros de cada demanda.
+- **Botões**, é possivel editar, criar, excluir, importar e exportar demandas pelos botões presentes no painel.
 - **Instrutor de demandas**, um chat interativo com IA Gemini, capaz de orientar, ensinar e esclarecer dúvidas sobre as tarefas e a organização.
 
 O sistema ajuda a **aumentar a performance e a organização** da equipe, mantendo todas as informações centralizadas e facilmente acessíveis.
@@ -33,7 +34,6 @@ O sistema ajuda a **aumentar a performance e a organização** da equipe, manten
 - **Cards inteligentes** que mudam de acordo com o dia  
 - **Histórico e gravações** de cada demanda  
 - **Chat de instrutor de demandas** com IA, capaz de responder perguntas, orientar prioridades e indicar próximos passos  
-- Suporte a **Markdown** nas respostas da IA (**negrito, itálico, código, listas**)  
 - **Sons de notificação** e feedback visual para ações importantes  
 
 ---
@@ -43,8 +43,7 @@ O sistema ajuda a **aumentar a performance e a organização** da equipe, manten
 - **Front-end:** HTML5, CSS3, JavaScript  
 - **Back-end:** Python + Flask  
 - **IA:** Google Gemini (via API generative AI)  
-- **Banco de dados/localStorage:** para histórico e registros  
-- **Markdown rendering:** `marked.js` para respostas formatadas do chat  
+- **localStorage:** para histórico e registros   
 
 ---
 
@@ -115,7 +114,7 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ```
 
 ## 🎬 Demonstração do Chat
-![Descrição do GIF]()
+![Descrição do GIF](/seeds/chatbot.gif)
 
 ## 📖 Licença
 
