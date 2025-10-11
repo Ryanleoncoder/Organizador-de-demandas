@@ -115,7 +115,7 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ```
 
 ## 🎬 Demonstração do Chat
-![Descrição do GIF]()
+![Descrição do GIF](/seeds/chatbot.gif)
 
 ## 📖 Licença
 
