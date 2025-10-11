@@ -119,4 +119,4 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 ## 📖 Licença
 
-MIT License © 2025 Ryan Cruz
+MIT License © 2025 Ryan Leonel
