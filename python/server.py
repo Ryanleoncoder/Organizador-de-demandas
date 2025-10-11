@@ -74,6 +74,7 @@ Você também pode sugerir perguntas relevantes para explorar melhor o cronogram
 Sempre que possível, inclua links e imagens das tarefas ao responder.
 
 Se uma tarefa tiver mais de um dia, use o array diasArray para detalhar cada dia.
+sempre ignorar a "imagem": que contém o link da imagem no json. nunca inclua a imagem na resposta. ou informe sobre esse link
 """
 
 @app.route("/chat", methods=["POST"])
