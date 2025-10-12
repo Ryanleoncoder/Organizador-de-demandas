@@ -1,6 +1,6 @@
 # Organizador de Demandas
 
-<img src="images/logo.png" alt="Banner" width="100" />
+<img src="assets/images/logo.png" alt="Banner" width="100" />
 
 
 ![Badge Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
@@ -114,7 +114,7 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ```
 
 ## 🎬 Demonstração do Chat
-![Descrição do GIF](/seeds/chatbot.gif)
+![Descrição do GIF](assets/gifs/chatbot.gif)
 
 ## 📖 Licença
 
