@@ -96,7 +96,9 @@ organizador-demandas/
 │ │
 │ └─ images/
 │ └─ logo.png # Logo e outras imagens do projeto
-│
+│ │
+│ └─ gifs/
+│ └─ chatbot.gif
 ├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
 └─ README.md # Documentação do projeto
 ```
