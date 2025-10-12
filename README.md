@@ -76,20 +76,29 @@ organizador-demandas/
 
 ```js
 organizador-demandas/
-├─ python
-│ └─ server.py Backend Python/Flask
-├─ index.html Front-end do painel e chat
+├─ python/
+│ ├─ server.py # Backend em Python (Flask)
+│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│
+├─ index.html # Front-end principal do painel e chat
+│
 ├─ css/
-│ └─ style.css Estilo do painel e chat
+│ └─ style.css # Estilos do painel e do chat
+│
 ├─ js/
-│ ├─ script.js Lógica do painel
-│ └─ chat.js Lógica do chat com IA
-├─ seeds/
-│ ├─ send.mp3 Som de envio do chat
-│ └─ receive.mp3 Som de recebimento do chat
-├─ images/
-│ └─ logo.png Logo e outras imagens do projeto
-├─ .env Variáveis de ambiente (API Key Gemini)
+│ ├─ script.js # Lógica do painel
+│ └─ chat.js # Lógica do chat com IA
+│
+├─ assets/
+│ ├─ audio/
+│ │ ├─ send.mp3 # Som de envio do chat
+│ │ └─ receive.mp3 # Som de recebimento do chat
+│ │
+│ └─ images/
+│ └─ logo.png # Logo e outras imagens do projeto
+│
+├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
+└─ README.md # Documentação do projeto
 ```
 🤖 Instrutor de Demandas (Chat)
 
