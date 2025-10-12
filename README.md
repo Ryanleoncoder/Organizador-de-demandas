@@ -8,21 +8,32 @@
 ![Badge JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![Badge HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![Badge CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white)
+
+
 
 ## Descrição
 
-O **Organizador de Demandas** é um sistema completo para **gerenciar tarefas, responsabilidades e prioridades** de uma equipe ou projeto.  
+O Organizador de Demandas é um sistema completo para gerenciar tarefas, responsabilidades e prioridades de uma equipe ou projeto.
+
+Cada demanda pode conter vídeos, links úteis, caminhos de pastas de rede e arquivos necessários — tudo em um só lugar.
+Essas informações complementares ajudam a garantir a continuidade das atividades, sendo especialmente úteis em situações de handover, férias ou quando uma tarefa precisa ser executada por alguém que não participou de sua criação.
+
+Além disso, o sistema conta com um chat integrado com IA, que ajuda a esclarecer dúvidas, fornecer orientações e apoiar a execução das demandas, tornando o gerenciamento ainda mais eficiente.
+
+
 
 Ele integra:
 
 - **Visualização de demandas** com datas de execução, responsáveis, descrições, links e caminhos de cada tarefa.  
 - **Matriz de prioridade** para organizar e destacar tarefas críticas.  
 - **Cards inteligentes**, que se atualizam automaticamente conforme o dia atual.  
-- **Histórico de execuções**, incluindo gravações ou registros de cada demanda.
-- **Botões**, é possivel editar, criar, excluir, importar e exportar demandas pelos botões presentes no painel.
-- **Instrutor de demandas**, um chat interativo com IA Gemini, capaz de orientar, ensinar e esclarecer dúvidas sobre as tarefas e a organização.
+- **Histórico de execuções**, incluindo gravações ou registros de cada demanda.  
+- **Botões de ação**, permitindo **criar, editar, excluir, importar e exportar** demandas diretamente pelo painel.  
+- **Instrutor de demandas**, um **chat interativo com IA Gemini**, capaz de orientar, ensinar e esclarecer dúvidas sobre as tarefas e a organização.
 
-O sistema ajuda a **aumentar a performance e a organização** da equipe, mantendo todas as informações centralizadas e facilmente acessíveis.
+
+Com isso, o Organizador de Demandas mantém a performance e a organização do time, evitando perda de contexto e garantindo que qualquer membro consiga dar continuidade às tarefas de forma rápida e eficiente.
 
 ---
 
@@ -76,20 +87,31 @@ organizador-demandas/
 
 ```js
 organizador-demandas/
-├─ python
-│ └─ server.py Backend Python/Flask
-├─ index.html Front-end do painel e chat
+├─ python/
+│ ├─ server.py # Backend em Python (Flask)
+│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│
+├─ index.html # Front-end principal do painel e chat
+│
 ├─ css/
-│ └─ style.css Estilo do painel e chat
+│ └─ style.css # Estilos do painel e do chat
+│
 ├─ js/
-│ ├─ script.js Lógica do painel
-│ └─ chat.js Lógica do chat com IA
-├─ seeds/
-│ ├─ send.mp3 Som de envio do chat
-│ └─ receive.mp3 Som de recebimento do chat
-├─ images/
-│ └─ logo.png Logo e outras imagens do projeto
-├─ .env Variáveis de ambiente (API Key Gemini)
+│ ├─ script.js # Lógica do painel
+│ └─ chat.js # Lógica do chat com IA
+│
+├─ assets/
+│ ├─ audio/
+│ │ ├─ send.mp3 # Som de envio do chat
+│ │ └─ receive.mp3 # Som de recebimento do chat
+│ │
+│ └─ images/
+│ └─ logo.png # Logo e outras imagens do projeto
+│ │
+│ └─ gifs/
+│ └─ chatbot.gif
+├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
+└─ README.md # Documentação do projeto
 ```
 🤖 Instrutor de Demandas (Chat)
 
