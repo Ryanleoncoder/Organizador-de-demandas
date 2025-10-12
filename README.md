@@ -111,7 +111,8 @@ organizador-demandas/
 │ └─ gifs/
 │ └─ chatbot.gif
 ├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
-└─ README.md # Documentação do projeto
+├─ README.md # Documentação do projeto
+└─ demandas.db
 ```
 🤖 Instrutor de Demandas (Chat)
 
