@@ -1,5 +1,11 @@
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif;}
-    body { background-color: #f4f6f9; color: #22223b;
+* { 
+  margin: 0;
+   padding: 0; 
+   box-sizing: border-box; 
+   font-family: "Segoe UI", sans-serif;
+  }
+    body {
+      background-color: #f4f6f9; color: #22223b;
     }
     #logoTopo { 
         position: absolute;
@@ -16,15 +22,50 @@
         filter: brightness(0.85); 
         cursor: pointer;
     }
-    header { background-color: #050007; color: white; padding: 20px 40px; text-align: center; font-size: 1.5rem; padding-left: 120px;}
-    .container { display: flex; height: calc(100vh - 70px);}
-    .sidebar { width: 300px; background-color: #a259e6; padding: 20px; color: white;}
-    .sidebar h2 { margin-bottom: 20px;}
-    .demandas-list { list-style: none;}
-    .demandas-list li { padding: 12px 16px; background-color: #660099; margin-bottom: 10px; border-radius: 6px; cursor: pointer; transition: background 0.3s;}
-    .demandas-list li:hover { background-color: #a259e6;}
-    .main-content { flex: 1; padding: 30px; position: relative;}
-    .painel-embacado { filter: blur(5px); pointer-events: none; user-select: none; transition: filter 0.3s;}
+    header { 
+      background-color: #050007; 
+      color: white; 
+      padding: 20px 40px; 
+      text-align: center; 
+      font-size: 1.5rem; 
+      padding-left: 120px;
+    }
+    .container { 
+      display: flex; 
+      height: calc(100vh - 70px);
+    }
+    .sidebar { 
+      width: 300px; 
+      background-color: #a259e6; 
+      padding: 20px; 
+      color: white;
+    }
+    .sidebar h2 { 
+      margin-bottom: 20px;
+    }
+    .demandas-list { 
+      list-style: none;
+    }
+    .demandas-list li { 
+      padding: 12px 16px; 
+      background-color: #660099; 
+      margin-bottom: 10px; 
+      border-radius: 6px; cursor: 
+      pointer; 
+      transition: background 0.3s;
+    }
+    .demandas-list li:hover { 
+      background-color: #a259e6;
+    }
+    .main-content { 
+      flex: 1; padding: 30px; position: relative;
+    }
+    .painel-embacado { 
+      filter: blur(5px); 
+      pointer-events: none; 
+      user-select: none; 
+      transition: filter 0.3s;
+    }
     #dataHoraAtual {
       position: fixed;
       top: 18px;
