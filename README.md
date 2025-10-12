@@ -75,7 +75,7 @@ pip install flask flask-cors google-generative-ai python-dotenv
 3. Crie o arquivo .env com sua chave da API Gemini:
 
 ```bash
-GEMINI_API_KEY=SUA_CHAVE_AQUI
+GEMINI_API_KEY=SUA_CHAVE
 ```
 4. Rode o backend:
 
