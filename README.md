@@ -54,7 +54,7 @@ Com isso, o Organizador de Demandas mantém a performance e a organização do t
 - **Front-end:** HTML5, CSS3, JavaScript  
 - **Back-end:** Python + Flask  
 - **IA:** Google Gemini (via API generative AI)  
-- **localStorage:** para histórico e registros   
+- **Banco de dados/localStorage:** para histórico e registros   
 
 ---
 
