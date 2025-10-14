@@ -1,7 +1,5 @@
 let descricaoDemandas = {}; // inicia vazio
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 async function carregarDescricaoDemandas() {
     try {
         const res = await fetch("http://localhost:5000/listar_demandas");
@@ -581,7 +579,7 @@ carregarDescricaoDemandas();
 
      try {
     
-      const resListar = await fetch('http://localhost:5000/listar_demandas');
+      const resListar = await fetch('http://127.0.0.1:5000/listar_demandas');
       const demandas = await resListar.json();
 
     // Encontrar a demanda pelo título
@@ -594,7 +592,7 @@ carregarDescricaoDemandas();
       const idSelecionado = demandaSelecionada.id;
 
     
-      const res = await fetch(`http://localhost:5000/apagardemandas/${idSelecionado}`, {
+      const res = await fetch(`http://127.0.0.1:5000/apagardemandas/${idSelecionado}`, {
         method: 'DELETE'
       });
 
