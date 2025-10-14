@@ -54,7 +54,7 @@ Com isso, o Organizador de Demandas mantém a performance e a organização do t
 - **Front-end:** HTML5, CSS3, JavaScript  
 - **Back-end:** Python + Flask  
 - **IA:** Google Gemini (via API generative AI)  
-- **localStorage:** para histórico e registros   
+- **Banco de dados/localStorage:** para histórico e registros   
 
 ---
 
@@ -75,7 +75,7 @@ pip install flask flask-cors google-generative-ai python-dotenv
 3. Crie o arquivo .env com sua chave da API Gemini:
 
 ```bash
-GEMINI_API_KEY=SUA_CHAVE_AQUI
+GEMINI_API_KEY=SUA_CHAVE
 ```
 4. Rode o backend:
 
@@ -111,7 +111,8 @@ organizador-demandas/
 │ └─ gifs/
 │ └─ chatbot.gif
 ├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
-└─ README.md # Documentação do projeto
+├─ README.md # Documentação do projeto
+└─ demandas.db
 ```
 🤖 Instrutor de Demandas (Chat)
 
