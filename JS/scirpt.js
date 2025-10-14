@@ -1,256 +1,41 @@
-// script das demandas
-    let descricaoDemandas = {
-      'Acompanhamento ': {
-        dias: 'Terça e Quinta',
-        diasArray: ['Terça', 'Quinta'],
-        descricao: 'sem',
-        prioridade: 'Média',
-        tempoEstimado: '10 minutos',      
-        responsavel: 'giovanna',
-        tags: ['Relatórios', 'Envio', 'Acompanhamento'],
-        imagem: 'https://cdn-icons-png.flaticon.com/512/5167/5167006.png',
-        links: [
-          { nome: 'GRAVAÇÃO: tarefa', url: '' },
-          { nome: 'PDF tarefa', url: ''},
-          { nome: 'tarefa', url: '' },
-          { nome: 'tarefa', url: '' }
-          
-        ]
-      },
-      'Pesquisa': {
-        dias: 'Terça',
-        diasArray: ['Terça'],
-        descricao: 'sem',
-        prioridade: 'Baixa',
-        tempoEstimado: '30 Minutos',
-        responsavel: 'lucas',
-        tags: ['Planilha', 'Pesquisa', 'Atualização', 'Envio'],
-        imagem: 'https://insider.com.br/wp-content/uploads/2015/06/painel-de-pre%C3%A7os-1.png',
-        links: [
-          { nome: 'tarefa', url: ''},
-          { nome: 'tarefa', url: '' },
-          { nome: 'Grvação', url: '' },
-          { nome: 'Grvação', url: '' }
-        ]
-      },
-      'apresentação': {
-        dias: 'Segunda',
-        diasArray: ['Segunda'],
-        descricao: 'Sem',
-        prioridade: 'Alta',
-        tempoEstimado: '30 minutos',
-        responsavel: 'Gabriele',
-        tags: ['Power point', 'Excel'],
-        imagem: 'https://legislacaoemercados.capitalaberto.com.br/wp-content/uploads/2024/07/17.07_materia1.webp',
-        links: [
-        { nome: 'Pasta de tarefa', url: '' },
-        { nome: 'Gravação: ', url: '' },
-        { nome: 'Gravação:', url: '' }
-        ]
-      },
-      'matinal': {
-        dias: 'Quinta',
-        diasArray: ['Quinta'],
-        descricao: 'sem ',
+let descricaoDemandas = {}; // inicia vazio
 
-        prioridade: 'Alta',
-        tempoEstimado: '1 hora',
-        responsavel: 'Isadora',
-        tags: ['Matinal', 'Apresentação', 'Power Point'],
-        imagem: 'https://static-blog.onlyoffice.com/wp-content/uploads/2024/04/05120705/asdasdxz.png',
-        links: [
-        { nome: 'Gravação', url: '' },
-        { nome: 'tarefa 2024', url: '' },
-        { nome: 'tarefa2025', url: ''},
-        { nome: 'tarefa', url: '' },
-        { nome: 'tarefa', url: '' }
+async function carregarDescricaoDemandas() {
+    try {
+        const res = await fetch("http://localhost:5000/listar_demandas");
+        if (!res.ok) throw new Error("Erro ao carregar demandas");
 
-        ]
-      },
-        'Top 10 coisa': {
-        dias: 'Segunda',
-        diasArray: ['Segunda'],
-        descricao: 'sem',
-        prioridade: 'Alta',
-        tempoEstimado: '1 Hora',
-        responsavel: 'lucas',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Macro'],
-        imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9EtIIBh9FRiUnWwJnzHagF4QgbcoRAn039A&s',
-        links: [
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: '' }
-        ]
-      },
-        'top 5 coisas': {
-        dias: 'Sexta ',
-        diasArray: ['Sexta'],
-        descricao: 'Sem',
-        prioridade: 'Alta',
-        tempoEstimado: '2 Hora',
-        responsavel: 'kevin',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Powerpoint, Pesquisa de preço'],
-        imagem: 'https://blog.aevo.com.br/wp-content/uploads/2019/01/comite-inovacao-min.png',
-        links: [
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'Perguntas': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: 'sem',
-        prioridade: 'Media',
-        tempoEstimado: '30 Minutos',
-        responsavel: 'Isa',
-        tags: ['Atualização', 'Questionarios', 'Excel'],
-        imagem: 'https://jcconcursos.com.br/media/_versions/noticia/concurso-trf4-prova-e-gabarito_widelg.jpg',
-        links: [
-         { nome: 'Base Exemplo', url: '' },
-        ]
-      },
-        'Margem': {
-        dias: 'Terça',
-        diasArray: ['Terça'],
-        descricao: ';',
-        prioridade: 'Baixa',
-        tempoEstimado: '10 Minutos',
-        responsavel: 'Caio',
-        tags: ['Acompanhamento', 'Atualização'],
-        imagem: 'https://lec.com.br/wp-content/uploads/2018/10/239584-analise-de-riscos-e-seus-processos-saiba-o-que-e-e-como-aplicar.jpg',
-        links: [
-         { nome: 'GRAVAÇÃO: Como fazer', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'musica': {
-        dias: 'Quarta',
-        diasArray: ['Quarta'],
-        descricao: 'Sem',
-        prioridade: 'Media',
-        tempoEstimado: '1 Hora',
-        responsavel: ' Mateus',
-        tags: ['Atualização', 'Power Bi', 'Powerpoint'],
-        imagem: 'https://dhg1h5j42swfq.cloudfront.net/2020/05/25105206/gestao-de-estoques-just-in-time-x-just-in-case2-700x680-2.png',
-        links: [
-         { nome: 'tarefa', url: '' },
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'Reunião com o Time': {
-        dias: 'Terça,',
-        diasArray: ['Terça'],
-        descricao: 'sem',
-        prioridade: 'Alta',
-        tempoEstimado: '2 Hora',
-        responsavel: 'carvalho',
-        tags: ['Reunião', 'Alinhamentos', 'ideias'],
-        imagem: 'https://riotron.com.br/wp-content/uploads/2017/06/negocio_vulneravel.jpg',
-      },
-        'E-mail ': {
-        dias: 'Segunda',
-        diasArray: ['Segunda'],
-        descricao: 'sem',
-        prioridade: 'Baixa',
-        tempoEstimado: '20 Minutos',
-        responsavel: 'Lucas',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Macro'],
-        imagem: 'https://cdn-icons-png.flaticon.com/512/5197/5197385.png',
-        links: [
-         { nome: 'tarefa', url: '' },
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-        ]
-      },
-        'tarefa b': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: ' sem',
-        prioridade: 'Media',
-        tempoEstimado: '1 Hora',
-        responsavel: 'dandara',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Macro'],
-        imagem: 'https://cdn-icons-png.flaticon.com/256/12284/12284666.png',
-        links: [
-         { nome: 'GRAVAÇÃO: Como enviar', url: ''}
-        ]
-      },
-        '5 pqs': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: 'Sem',
-        prioridade: 'Alta',
-        tempoEstimado: '1 Hora',
-        responsavel: 'Isadora',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Macro'],
-        imagem: 'https://www.flowup.me/blog/wp-content/uploads/2024/06/FlowUp-imagens-_54_.webp',
-        links: [
-         { nome: 'tarefa', url: '' },
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'projeto a': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: 'Sem',
-        prioridade: 'Baixa',
-        tempoEstimado: '1 Hora',
-        responsavel: 'kevin',
-        tags: ['Atualização', 'Excel'],
-        imagem: 'https://msarh.com.br/wp-content/uploads/2018/11/hierarquia.jpg',
-        links: [
-         { nome: 'tarefa', url: '' },
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'Estudo': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: 'Sem',
-        tempoEstimado: '1 Hora',
-        responsavel: 'kevin',
-        tags: ['Atualização', 'Power Bi', 'Excel', 'Macro'],
-        imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwQlHpEyFOZYWl2P0n6Yr__dmb5Bh2gih2rg&s',
-        links: [
-         { nome: 'tarefa', url: '' },
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''},
-         { nome: 'tarefa', url: ''}
-        ]
-      },
-        'fazer algo': {
-        dias: 'Sobdemanda',
-        diasArray: ['Sobdemanda'],
-        descricao: ' ',
-        prioridade: 'Baixa',
-        tempoEstimado: '20 Minutos',
-        responsavel: 'Isa',
-        tags: ['Atualização', 'Excel'],
-        imagem: 'https://ravel.com.br/blog/wp-content/uploads/2020/03/tamanho-arquivo.png',
-        links: [
-         { nome: 'Carga', url: '' },
-         { nome: 'GRAVAÇÃO', url: ''},
-        ]
-      }
-    };
+        const demandas = await res.json();
 
-    if (localStorage.getItem('descricaoDemandas')) {
-      descricaoDemandas = JSON.parse(localStorage.getItem('descricaoDemandas'));
-    } else {
-      localStorage.setItem('descricaoDemandas', JSON.stringify(descricaoDemandas));
+        // transforma em objeto como antes, usando o título como chave
+        descricaoDemandas = {};
+        demandas.forEach(d => {
+            descricaoDemandas[d.titulo] = {
+                dias: d.dias,
+                diasArray: d.dias ? d.dias.split(",").map(s => s.trim()) : [],
+                descricao: d.descricao,
+                prioridade: d.prioridade,
+                tempoEstimado: d.tempoEstimado,
+                responsavel: d.responsavel,
+                tags: d.tags ? d.tags.split(",") : [],
+                imagem: d.imagem || "", // se tiver imagem no banco
+                links: d.links ? JSON.parse(d.links) : []
+            };
+        });
+
+        // se ainda quiser armazenar no localStorage
+        localStorage.setItem('descricaoDemandas', JSON.stringify(descricaoDemandas));
+
+
+        mostrarDemandas(); 
+    } catch (err) {
+        console.error("Erro ao carregar demandas:", err);
     }
+}
+
+
+carregarDescricaoDemandas();
+
 
     
     let fluxoPosicoes = JSON.parse(localStorage.getItem('fluxoPosicoes') || '{}');
@@ -783,133 +568,184 @@
         modal.remove();
       };
 
-      document.getElementById('btnConfirmarApagar').onclick = () => {
-        const nomeSelecionado = select.value;
-        if (!nomeSelecionado) {
-          alert('Por favor, selecione uma demanda para apagar.');
-          return;
-        }
+    document.getElementById('btnConfirmarApagar').onclick = async () => {
+     const nomeSelecionado = select.value;
+     if (!nomeSelecionado) {
+       alert('Por favor, selecione uma demanda para apagar.');
+       return;
+      }
 
-        if (confirm(`Tem certeza que deseja apagar a demanda "${nomeSelecionado}"?`)) {
-          delete demandas[nomeSelecionado];
-          localStorage.setItem('descricaoDemandas', JSON.stringify(demandas));
-          alert('Demanda apagada com sucesso!');
-          modal.remove();
-          atualizarDemandas();
-          fecharDetalhes();
-        }
-      };
+     if (!confirm(`Tem certeza que deseja apagar a demanda "${nomeSelecionado}"?`)) return;
+
+     try {
+    
+      const resListar = await fetch('http://127.0.0.1:5000/listar_demandas');
+      const demandas = await resListar.json();
+
+    // Encontrar a demanda pelo título
+      const demandaSelecionada = demandas.find(d => d.titulo === nomeSelecionado);
+      if (!demandaSelecionada) {
+        alert('Demanda não encontrada!');
+        return;
+      }
+
+      const idSelecionado = demandaSelecionada.id;
+
+    
+      const res = await fetch(`http://127.0.0.1:5000/apagardemandas/${idSelecionado}`, {
+        method: 'DELETE'
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.mensagem || 'Demanda apagada com sucesso!');
+        modal.remove();
+        atualizarDemandas();
+      } else {
+       alert(data.erro || 'Erro ao apagar demanda.');
+      }
+
+   } catch (err) {
+      console.error('Erro ao apagar demanda:', err);
+      alert('Erro ao apagar demanda.');
+    }
+   };
+
+
     }
 
-    // --------- BOTÕES NO PAINEL DE BOAS-VINDAS ---------
-    window.addEventListener('DOMContentLoaded', function() {
-      const painelBoasVindas = document.getElementById('painelBoasVindas');
+// --------- BOTÕES NO PAINEL DE BOAS-VINDAS ---------
+window.addEventListener('DOMContentLoaded', function() {
+  const painelBoasVindas = document.getElementById('painelBoasVindas');
 
-      
-      if (!document.getElementById('btnExportarDemandas')) {
-        const divBtns = document.createElement('div');
-        divBtns.style = 'display:flex; justify-content:center; gap:10px;';
+  if (!document.getElementById('btnExportarDemandas')) {
+    const divBtns = document.createElement('div');
+    divBtns.style = 'display:flex; justify-content:center; gap:10px; margin-bottom:15px;';
 
-        const btnExportar = document.createElement('button');
-        btnExportar.id = 'btnExportarDemandas';
-        btnExportar.textContent = 'Exportar Demandas';
-        btnExportar.style = 'background:#660099; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer;';
-        divBtns.appendChild(btnExportar);
+    // BOTÃO EXPORTAR
+    const btnExportar = document.createElement('button');
+    btnExportar.id = 'btnExportarDemandas';
+    btnExportar.textContent = 'Exportar Demandas';
+    btnExportar.style = 'background:#660099; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer;';
+    divBtns.appendChild(btnExportar);
 
-        const btnImportar = document.createElement('button');
-        btnImportar.id = 'btnImportarDemandas';
-        btnImportar.textContent = 'Importar Demandas';
-        btnImportar.style = 'background:#7be495; color:#222; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer;';
-        divBtns.appendChild(btnImportar);
+    // BOTÃO IMPORTAR
+    const btnImportar = document.createElement('button');
+    btnImportar.id = 'btnImportarDemandas';
+    btnImportar.textContent = 'Importar Demandas';
+    btnImportar.style = 'background:#7be495; color:#222; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer;';
+    divBtns.appendChild(btnImportar);
 
-        const inputImportar = document.createElement('input');
-        inputImportar.type = 'file';
-        inputImportar.id = 'inputImportarDemandas';
-        inputImportar.accept = '.json';
-        inputImportar.style = 'display:none;';
-        divBtns.appendChild(inputImportar);
+    // INPUT OCULTO PARA JSON
+    const inputImportar = document.createElement('input');
+    inputImportar.type = 'file';
+    inputImportar.id = 'inputImportarDemandas';
+    inputImportar.accept = '.json';
+    inputImportar.style = 'display:none;';
+    divBtns.appendChild(inputImportar);
 
-        painelBoasVindas.insertBefore(divBtns, painelBoasVindas.querySelector('#btnNovaDemanda'));
+    painelBoasVindas.insertBefore(divBtns, painelBoasVindas.querySelector('#btnNovaDemanda'));
+  }
+
+  // BOTÃO NOVA DEMANDA
+  if (!document.getElementById('btnNovaDemanda')) {
+    const btnNovaDemanda = document.createElement('button');
+    btnNovaDemanda.id = 'btnNovaDemanda';
+    btnNovaDemanda.textContent = '+ Nova Demanda';
+    btnNovaDemanda.style = 'background:#660099; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer; margin-top:20px;';
+    btnNovaDemanda.onclick = abrirFormularioNovaDemanda;
+    painelBoasVindas.appendChild(btnNovaDemanda);
+  }
+
+  // BOTÃO APAGAR DEMANDA
+  if (!document.getElementById('btnApagarDemanda')) {
+    const btnApagarDemanda = document.createElement('button');
+    btnApagarDemanda.id = 'btnApagarDemanda';
+    btnApagarDemanda.textContent = 'Apagar Demanda';
+    btnApagarDemanda.style = 'background:#cc0000; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer; margin-top:10px; margin-left: 10px;';
+    btnApagarDemanda.onclick = abrirModalApagarDemanda;
+    painelBoasVindas.appendChild(btnApagarDemanda);
+  }
+
+  // -------- BOTÃO EXPORTAR DEMANDAS --------
+  document.getElementById('btnExportarDemandas').onclick = function() {
+    const demandas = localStorage.getItem('descricaoDemandas');
+    if (!demandas) return alert('Não há demandas para exportar.');
+    const blob = new Blob([demandas], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'demandas.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // -------- BOTÃO IMPORTAR DEMANDAS --------
+  const btnImportar = document.getElementById('btnImportarDemandas');
+  const inputImportar = document.getElementById('inputImportarDemandas');
+
+  btnImportar.onclick = () => {
+    inputImportar.click(); 
+  };
+
+  inputImportar.onchange = async () => {
+    const file = inputImportar.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('http://localhost:5000/importar_demandas', {
+       method: 'POST',
+       body: formData
+     });
+
+    
+      const data = await res.json();
+      if (res.ok) {
+         alert(data.mensagem || 'Demandas importadas com sucesso!');
+      } else {
+         alert(data.erro || 'Erro ao importar demandas.');
       }
+    } catch (error) {
+      console.error('Erro ao conectar com o servidor:', error);
+      alert('Erro ao conectar com o servidor.');
+    }
 
-      // Botão Nova Demanda
-      if (!document.getElementById('btnNovaDemanda')) {
-        const btnNovaDemanda = document.createElement('button');
-        btnNovaDemanda.id = 'btnNovaDemanda';
-        btnNovaDemanda.textContent = '+ Nova Demanda';
-        btnNovaDemanda.style = 'background:#660099; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer; margin-top:20px;';
-        btnNovaDemanda.onclick = abrirFormularioNovaDemanda;
-        painelBoasVindas.appendChild(btnNovaDemanda);
-      }
-      // Botão Apagar Demanda
-      if (!document.getElementById('btnApagarDemanda')) {
-        const btnApagarDemanda = document.createElement('button');
-        btnApagarDemanda.id = 'btnApagarDemanda';
-        btnApagarDemanda.textContent = 'Apagar Demanda';
-        btnApagarDemanda.style = 'background:#cc0000; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:1em; cursor:pointer; margin-top:10px; margin-left: 10px;';
-        btnApagarDemanda.onclick = abrirModalApagarDemanda;
-        painelBoasVindas.appendChild(btnApagarDemanda);
-      }
+  
+    inputImportar.value = '';
+    };
 
-      // Exportação de demandas
-      document.getElementById('btnExportarDemandas').onclick = function() {
-        const demandas = localStorage.getItem('descricaoDemandas');
-        const blob = new Blob([demandas], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'demandas.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      };
 
-      // Importação de demandas
-      document.getElementById('btnImportarDemandas').onclick = function() {
-        document.getElementById('inputImportarDemandas').click();
-      };
-      document.getElementById('inputImportarDemandas').onchange = function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          try {
-            const novasDemandas = JSON.parse(ev.target.result);
-            let demandas = JSON.parse(localStorage.getItem('descricaoDemandas') || '{}');
-            
-            const novas = [];
-            const atualizadas = [];
-            Object.keys(novasDemandas).forEach(nome => {
-              if (!demandas[nome]) {
-                novas.push(nome);
-              } else {
-                atualizadas.push(nome);
-              }
-            });
+  // -------- FUNÇÃO PARA CARREGAR DEMANDAS NA TELA --------
+  async function carregarDemandas() {
+    try {
+      const res = await fetch('/listar_demandas');
+      const demandas = await res.json();
+      console.log(demandas);
 
-            
-            let resumo = `Resumo da importação:\n`;
-            if (novas.length) resumo += `Novas demandas: ${novas.join(', ')}\n`;
-            if (atualizadas.length) resumo += `Demandas atualizadas: ${atualizadas.join(', ')}\n`;
-            if (!novas.length && !atualizadas.length) resumo += `Nenhuma demanda nova ou atualizada.\n`;
-            resumo += `\nDeseja continuar?`;
+      // exemplo de renderização simples:
+      const container = document.getElementById('listaDemandas');
+      if (!container) return;
+      container.innerHTML = '';
+      demandas.forEach(d => {
+        const div = document.createElement('div');
+        div.textContent = `${d.titulo} - Responsável: ${d.responsavel} - Prioridade: ${d.prioridade}`;
+        container.appendChild(div);
+      });
 
-            if (confirm(resumo)) {
-              Object.assign(demandas, novasDemandas);
-              localStorage.setItem('descricaoDemandas', JSON.stringify(demandas));
-              alert('Demandas importadas com sucesso!');
-              atualizarDemandas();
-            } else {
-              alert('Importação cancelada.');
-            }
-          } catch (err) {
-            alert('Arquivo inválido!');
-          }
-        };
-        reader.readAsText(file);
-      };
-    });
+    } catch (err) {
+      console.error('Erro ao carregar demandas:', err);
+    }
+  }
+
+  
+  carregarDemandas();
+});
+
 
     // --------- Matriz VISUAL ---------
 let fluxoOrdem = JSON.parse(localStorage.getItem('fluxoOrdem') || '{}');
