@@ -1,35 +1,39 @@
-let descricaoDemandas = {}; // inicia vazio
+let descricaoDemandas = {}; 
 
 async function carregarDescricaoDemandas() {
+    document.getElementById('loadingDemandas').style.display = 'flex';
     try {
         const res = await fetch("http://localhost:5000/listar_demandas");
         if (!res.ok) throw new Error("Erro ao carregar demandas");
 
         const demandas = await res.json();
 
-        // transforma em objeto como antes, usando o título como chave
+        
         descricaoDemandas = {};
         demandas.forEach(d => {
             descricaoDemandas[d.titulo] = {
                 dias: d.dias,
-                diasArray: d.dias ? d.dias.split(",").map(s => s.trim()) : [],
+                diasArray: d.dias
+                    ? d.dias.split(/[,;\/|]| e /i).map(s => s.trim()).filter(Boolean)
+                    : [],
                 descricao: d.descricao,
                 prioridade: d.prioridade,
                 tempoEstimado: d.tempoEstimado,
                 responsavel: d.responsavel,
                 tags: d.tags ? d.tags.split(",") : [],
-                imagem: d.imagem || "", // se tiver imagem no banco
+                imagem: d.imagem || "", 
                 links: d.links ? JSON.parse(d.links) : []
             };
         });
 
-        // se ainda quiser armazenar no localStorage
-        localStorage.setItem('descricaoDemandas', JSON.stringify(descricaoDemandas));
 
-
-        mostrarDemandas(); 
+        document.getElementById('loadingDemandas').style.display = 'none';
+        return true;
     } catch (err) {
-        console.error("Erro ao carregar demandas:", err);
+       document.getElementById('loadingDemandas').style.display = 'none';
+       document.getElementById('erroDemandas').style.display = 'flex';
+       console.error("Erro ao carregar demandas:", err);
+       return false;
     }
 }
 
@@ -125,13 +129,15 @@ carregarDescricaoDemandas();
       });
     }
 
-    function atualizarDemandas() {
-      descricaoDemandas = JSON.parse(localStorage.getItem('descricaoDemandas') || '{}');
-      atualizarSidebarDemandas();
-      atualizarPainelBoasVindas();
-      preencherResumoSemanal();
-      preencherProximasDemandas();
+    async function atualizarDemandas() {
+    const ok = await carregarDescricaoDemandas();
+    if (ok) {
+        atualizarSidebarDemandas();
+        atualizarPainelBoasVindas();
+        preencherResumoSemanal();
+        preencherProximasDemandas();
     }
+}
 
     atualizarDemandas();
 
@@ -371,24 +377,33 @@ carregarDescricaoDemandas();
           }
         }
 
-        let demandas = JSON.parse(localStorage.getItem('descricaoDemandas') || '{}');
-        demandas[nome] = {
-          dias: diasArray.join(', '),
-          diasArray: diasArray,
+        fetch(`${API_URL}/criar_demanda`, {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+          titulo: nome,
           descricao: descricao,
-          links: links,
-          imagem: imagem,
           prioridade: prioridade,
-          tempoEstimado: tempoEstimado,
           responsavel: responsavel,
+          tempoEstimado: tempoEstimado,
+          dias: diasArray.join(', '),
           tags: tags
-        };
-
-        localStorage.setItem('descricaoDemandas', JSON.stringify(demandas));
-
-        alert('Demanda salva com sucesso!');
-        form.remove();
-        atualizarDemandas();
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.mensagem) {
+         alert(data.mensagem);
+         form.remove();
+         atualizarDemandas(); 
+        } else {
+          alert(data.erro || 'Erro ao criar demanda');
+        }
+      })
+      .catch(err => {
+      console.error('Erro ao criar demanda:', err);
+      alert('Erro ao criar demanda');
+     });
       };
     }
 
@@ -492,20 +507,37 @@ carregarDescricaoDemandas();
           }
         }
 
-        let demandas = JSON.parse(localStorage.getItem('descricaoDemandas') || '{}');
-        demandas[nomeDemanda] = {
+
+
+        fetch(`${API_URL}/editar_demanda/${id}`, {
+         method: 'PUT',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+          titulo: nomeDemanda,
           dias: diasArray.join(', '),
-          diasArray: diasArray,
           descricao: descricao,
           links: links,
-          imagem: imagem,
           prioridade: prioridade,
           tempoEstimado: tempoEstimado,
           responsavel: responsavel,
           tags: tags
-        };
-
-        localStorage.setItem('descricaoDemandas', JSON.stringify(demandas));
+         })
+        })
+        .then(res => res.json())
+        .then(data => {
+         if (data.mensagem) {
+           alert(data.mensagem);
+           form.remove();
+           atualizarDemandas();
+           mostrarDetalhes(nomeDemanda);
+         } else {
+           alert(data.erro || 'Erro ao editar demanda');
+         }
+        })
+        .catch(err => {
+        console.error('Erro ao editar demanda:', err);
+        alert('Erro ao editar demanda');
+       });
 
         alert('Demanda editada com sucesso!');
         form.remove();
@@ -556,7 +588,7 @@ carregarDescricaoDemandas();
       document.body.appendChild(modal);
 
       const select = document.getElementById('selectDemandaApagar');
-      const demandas = JSON.parse(localStorage.getItem('descricaoDemandas') || '{}');
+      const demandas = descricaoDemandas;
       Object.keys(demandas).forEach(nome => {
         const option = document.createElement('option');
         option.value = nome;
@@ -582,7 +614,7 @@ carregarDescricaoDemandas();
       const resListar = await fetch('http://127.0.0.1:5000/listar_demandas');
       const demandas = await resListar.json();
 
-    // Encontrar a demanda pelo título
+    
       const demandaSelecionada = demandas.find(d => d.titulo === nomeSelecionado);
       if (!demandaSelecionada) {
         alert('Demanda não encontrada!');
@@ -669,7 +701,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // -------- BOTÃO EXPORTAR DEMANDAS --------
   document.getElementById('btnExportarDemandas').onclick = function() {
-    const demandas = localStorage.getItem('descricaoDemandas');
+    const demandas = JSON.stringify(descricaoDemandas);
     if (!demandas) return alert('Não há demandas para exportar.');
     const blob = new Blob([demandas], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -727,7 +759,7 @@ window.addEventListener('DOMContentLoaded', function() {
       const demandas = await res.json();
       console.log(demandas);
 
-      // exemplo de renderização simples:
+
       const container = document.getElementById('listaDemandas');
       if (!container) return;
       container.innerHTML = '';
@@ -857,7 +889,7 @@ function renderizarFluxograma() {
   function obterDiasArray(demanda) {
     if (Array.isArray(demanda?.diasArray)) return demanda.diasArray;
     if (typeof demanda?.dias === 'string') {
-      return demanda.dias.split(/[,;/|]/).map(s => s.trim()).filter(Boolean);
+        return demanda.dias.split(/[,;\/|]| e /i).map(s => s.trim()).filter(Boolean);
     }
     return [];
   }

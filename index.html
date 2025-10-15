@@ -8,6 +8,28 @@
 
 </head>
 <body>
+ 
+<div id="loadingDemandas" style="display:none;">
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Carregando demandas...</div>
+  </div>
+</div>
+<div id="erroDemandas" style="display:none;">
+  <div class="erro-overlay">
+    <img class="erro-icone" src="assets/images/error-server.png" alt="Erro de servidor" style="width:54px; height:54px; margin-bottom:16px;">
+    <div class="erro-titulo">Não foi possível carregar as demandas</div>
+    <div class="erro-msg">
+      O servidor não respondeu.<br>
+      Verifique sua conexão ou tente novamente em alguns instantes.<br>
+    </div>
+    <button class="erro-btn" onclick="location.reload()">
+     <span style="font-size:1.2em; vertical-align:middle;">🔄</span>
+     <span style="vertical-align:middle;">Tentar novamente</span>
+    </button>
+  </div>
+</div>
+</div>
   <div id="dataHoraAtual"></div>
   <a href="#" id="logoTopo" title="Recarregar página" onclick="location.reload(); return false;">
     <img src="assets/images/logo.png" alt="Logo">
