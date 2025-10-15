@@ -3,7 +3,7 @@ let descricaoDemandas = {};
 async function carregarDescricaoDemandas() {
     document.getElementById('loadingDemandas').style.display = 'flex';
     try {
-        const res = await fetch("http://localhost:5000/listar_demandas");
+        const res = await fetch(`${API_URL}/listar_demandas`);
         if (!res.ok) throw new Error("Erro ao carregar demandas");
 
         const demandas = await res.json();
@@ -509,7 +509,7 @@ carregarDescricaoDemandas();
        
         let id = null;
         try {
-          const resListar = await fetch('http://localhost:5000/listar_demandas');
+          const resListar = await fetch(`${API_URL}/listar_demandas`);
           const demandas = await resListar.json();
           const demandaSelecionada = demandas.find(d => d.titulo === nomeDemanda);
           if (!demandaSelecionada) {
@@ -524,7 +524,7 @@ carregarDescricaoDemandas();
 
         
         try {
-          const res = await fetch(`http://localhost:5000/editar_demanda/${id}`, {
+          const res = await fetch(`${API_URL}/editar_demanda/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -620,7 +620,7 @@ carregarDescricaoDemandas();
 
      try {
     
-      const resListar = await fetch('http://127.0.0.1:5000/listar_demandas');
+      const resListar = await fetch(`${API_URL}/listar_demandas`);
       const demandas = await resListar.json();
 
     
@@ -633,7 +633,7 @@ carregarDescricaoDemandas();
       const idSelecionado = demandaSelecionada.id;
 
     
-      const res = await fetch(`http://127.0.0.1:5000/apagardemandas/${idSelecionado}`, {
+      const res = await fetch(`${API_URL}/apagardemandas/${idSelecionado}`, {
         method: 'DELETE'
       });
 
@@ -739,7 +739,7 @@ window.addEventListener('DOMContentLoaded', function() {
     formData.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:5000/importar_demandas', {
+      const res = await fetch(`${API_URL}/importar_demandas`, {
        method: 'POST',
        body: formData
      });
@@ -1030,3 +1030,4 @@ function abrirChat() {
         'width=600,height=700,resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no'
     );
 }
+
