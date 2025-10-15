@@ -78,21 +78,29 @@
         <p>Selecione uma demanda ao lado para ver detalhes, dias de execução e exemplos ilustrativos.</p>
         <div style="display:flex; justify-content:center; gap:30px; margin-top:40px;">
           <div id="demandasAtivas">
-            <strong>0</strong><br>Demandas Ativas🔥
+            <strong>0</strong><br>Demandas Ativas
+            <div class="card-emoji">🔥</div>
+            
           </div>
           <div id="demandasHoje">
             <strong>0</strong><br>Demandas para Hoje
             <div id="listaDemandasHoje" style="margin-top:10px; font-size:0.95em;"></div>
           </div>
         </div>
-        <div style="margin-top:30px;">
-          <h3>Resumo Semanal</h3>
-          <ul id="resumoSemanal" style="list-style: disc; text-align:left; display:inline-block; margin-bottom:0;"></ul>
-        </div>
-        <div style="margin-top:30px;">
+        <div class="slide-container">
           <h3>Próximas Demandas</h3>
-          <ul id="proximasDemandas" style="list-style: disc; text-align:left; display:inline-block;"></ul>
+          <div class="slide-wrapper" id="proximasDemandas"></div>
+          <button class="prev" onclick="slide(-1)">❮</button>
+          <button class="next" onclick="slide(1)">❯</button>
         </div>
+        <div class="resumo-semanal-container">
+         <h3 class="titulo-resumo">Resumo Semanal</h3>
+         <ul id="resumoSemanal"></ul>
+        </div>
+
+      
+
+        
         <div style="margin-top:30px; color:#7a13bf;">
           <em>Crie novas demandas ou importe uma com os botões abaixo!</em>
         </div>
@@ -111,6 +119,9 @@
             <p id="descricaoDemanda"></p>
           </div>
           <div class="detalhe-imgbox">
+            <img id="imagemDemanda" src="" alt="Imagem da demanda">
+            <div id="uploadBox" class="upload-box" onclick="document.getElementById('inputImagem').click()"></div>
+            <input type="file" id="inputImagem" accept="image/*" style="display: none;" onchange="enviarImagem(event)">
             <img id="imagemDemanda" src="" alt="Imagem da demanda">
           </div>
         </div>

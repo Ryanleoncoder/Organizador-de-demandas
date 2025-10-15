@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from google.generativeai import configure, GenerativeModel
 import mysql.connector
+from flask import send_from_directory
 
 load_dotenv()
 
@@ -13,6 +14,8 @@ CORS(app)
 configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = GenerativeModel("gemini-2.5-flash")
 
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def connect_db():
     return mysql.connector.connect(
@@ -36,6 +39,9 @@ Regras de comportamento:
 8. Responda em português.
 9. saiba dizer não sei quando não souber a resposta.
 10. diga que só sabe informar sobre demandas cadastradas no banco, caso não tenha dados no banco diga que não tem demandas cadastradas.
+11. sempre que possível, resuma as demandas em tópicos.
+12. seu nome é Enzo, um instrutor de demandas.
+13. voce não pode cadastrar demandas, listar demandas, atualizar demandas e deletar demandas.
 """
 
 
@@ -78,6 +84,43 @@ Instrutor:
 
     except Exception as e:
         return jsonify({"resposta": f"Erro: {str(e)}"}), 500
+    
+
+
+
+# ----------------- UPLOAD DE IMAGEM -----------------
+@app.route('/upload/<int:demanda_id>', methods=['POST'])
+def upload(demanda_id):
+    if 'imagem' not in request.files:
+        return jsonify({'erro': 'Nenhuma imagem enviada'}), 400
+
+    imagem = request.files['imagem']
+    filename = f"demanda_{demanda_id}_{imagem.filename}"
+    caminho = os.path.join(UPLOAD_FOLDER, filename)
+
+ 
+    try:
+        imagem.save(caminho)
+    except Exception as e:
+        return jsonify({'erro': f'Falha ao salvar a imagem: {str(e)}'}), 500
+
+   
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE demandas SET imagem=%s WHERE id=%s", (filename, demanda_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    except Exception as e:
+        return jsonify({'erro': f'Falha ao atualizar banco: {str(e)}'}), 500
+
+    return jsonify({'caminho': f'/uploads/{filename}'})
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 if __name__ == "__main__":

@@ -21,8 +21,8 @@ async function carregarDescricaoDemandas() {
                 tempoEstimado: d.tempoEstimado,
                 responsavel: d.responsavel,
                 tags: d.tags ? d.tags.split(",") : [],
-                imagem: d.imagem || "", 
-                links: d.links ? JSON.parse(d.links) : []
+                links: d.links ? JSON.parse(d.links) : [],
+                imagem: d.imagem || ""
             };
         });
 
@@ -80,43 +80,102 @@ carregarDescricaoDemandas();
       
     }
 
-    function preencherResumoSemanal() {
-      const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
-      const resumo = {};
-      diasSemana.forEach(dia => resumo[dia] = []);
-      for (const [nome, demanda] of Object.entries(descricaoDemandas)) {
-        if (demanda.diasArray) {
-          demanda.diasArray.forEach(dia => {
-            if (resumo[dia]) resumo[dia].push(nome);
-          });
-        }
-      }
-      const ul = document.getElementById('resumoSemanal');
-      ul.innerHTML = '';
-      diasSemana.forEach(dia => {
-        ul.innerHTML += `<li><strong>${dia}:</strong> ${resumo[dia].length > 0 ? resumo[dia].join(', ') : '<span style="color:#888;">Nenhuma</span>'}</li>`;
-      });
-    }
+   function preencherResumoSemanal(maxExibir = 3) {
+    const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+    const resumo = {};
 
-    function preencherProximasDemandas() {
-      const hoje = new Date();
-      const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
-      const proximos = [];
-      for (let i = 1; i <= 5; i++) {
-        const data = new Date(hoje);
-        data.setDate(hoje.getDate() + i);
-        const diaNome = dias[data.getDay()];
-        for (const [nome, demanda] of Object.entries(descricaoDemandas)) {
-          if (demanda.diasArray && demanda.diasArray.includes(diaNome)) {
-            proximos.push(`${nome} (${diaNome})`);
-          }
+    diasSemana.forEach(dia => resumo[dia] = []);
+
+    Object.entries(descricaoDemandas).forEach(([nome, demanda]) => {
+        demanda.diasArray?.forEach(dia => {
+            if (resumo[dia]) resumo[dia].push(nome);
+        });
+    });
+
+    const ul = document.getElementById('resumoSemanal');
+    ul.innerHTML = '';
+
+    diasSemana.forEach(dia => {
+        const demandasDia = resumo[dia];
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${dia}</strong>`;
+
+        demandasDia.forEach((nome, idx) => {
+            const span = document.createElement('span');
+            span.textContent = nome;
+            span.classList.add('demanda');
+            if (idx >= maxExibir) span.classList.add('extra'); // escondido por padrão
+            span.onclick = () => mostrarDetalhes(nome);
+            li.appendChild(span);
+        });
+
+        // Se houver mais demandas do que o maxExibir, mostra "+X demandas"
+        if (demandasDia.length > maxExibir) {
+            const spanMais = document.createElement('span');
+            spanMais.classList.add('mais-demandas');
+            spanMais.textContent = `+${demandasDia.length - maxExibir} demandas`;
+            li.appendChild(spanMais);
         }
-      }
-      const ul = document.getElementById('proximasDemandas');
-      ul.innerHTML = proximos.length > 0
-        ? proximos.map(d => `<li>${d}</li>`).join('')
-        : '<li><span style="color:#888;">Nenhuma demanda nos próximos dias</span></li>';
-    }
+
+        if (demandasDia.length === 0) {
+            const nenhum = document.createElement('span');
+            nenhum.textContent = 'Nenhuma';
+            nenhum.style.color = '#888';
+            li.appendChild(nenhum);
+        }
+
+        ul.appendChild(li);
+     });
+}
+
+
+
+  function preencherProximasDemandas() {
+   const hoje = new Date();
+   const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+   const proximos = [];
+
+   for (let i = 1; i <= 5; i++) {
+     const data = new Date(hoje);
+     data.setDate(hoje.getDate() + i);
+     const diaNome = dias[data.getDay()];
+
+     for (const [nome, demanda] of Object.entries(descricaoDemandas)) {
+       if (demanda.diasArray && demanda.diasArray.includes(diaNome)) {
+         proximos.push({ nome, dia: diaNome });
+       }
+     }
+   }
+
+   const wrapper = document.getElementById('proximasDemandas');
+   wrapper.innerHTML = '';
+
+   if (proximos.length === 0) {
+     wrapper.innerHTML = '<div class="slide-card"><span style="color:#888;">Nenhuma demanda nos próximos dias</span></div>';
+    } else {
+     proximos.forEach(d => {
+      const card = document.createElement('div');
+      card.className = `slide-card ${d.dia.toLowerCase()}`; 
+      card.innerHTML = `
+         <div class="dia-badge">${d.dia}</div>
+         <div class="demanda-text">${d.nome}</div>
+       `;
+      wrapper.appendChild(card);
+    });
+
+   }
+ }
+
+// Controle dos botões de slide
+  function slide(direction) {
+    const wrapper = document.getElementById('proximasDemandas');
+    const cardWidth = wrapper.querySelector('.slide-card').offsetWidth + 15; // card width + margin
+    wrapper.scrollBy({ left: cardWidth * direction, behavior: 'smooth' });
+  }
+
+
+preencherProximasDemandas();
+
 
     function atualizarSidebarDemandas() {
       const ul = document.querySelector('.demandas-list');
@@ -169,13 +228,31 @@ carregarDescricaoDemandas();
       document.getElementById("tagsDemanda").innerHTML = demanda.tags && demanda.tags.length
         ? `<strong>Tags:</strong> ${demanda.tags.map(tag => `<span style="background:#eee; color:#660099; border-radius:6px; padding:2px 8px; margin-right:4px; font-size:0.95em;">${tag}</span>`).join('')}` : '';
 
-      const img = document.getElementById("imagemDemanda");
-      if (demanda.imagem) {
+fetch(`${API_URL}/listar_demandas`)
+  .then(res => res.json())
+  .then(demandas => {
+    const container = document.getElementById("containerDemandas");
+    container.innerHTML = "";
+
+    demandas.forEach(demanda => {
+      const divDemanda = document.createElement("div");
+
+      const titulo = document.createElement("h3");
+      titulo.textContent = demanda.nome;
+      divDemanda.appendChild(titulo);
+
+      if (demanda.imagem) {  
+        const img = document.createElement("img");
         img.src = demanda.imagem;
-        img.style.display = "block";
-      } else {
-        img.style.display = "none";
+        img.style.maxWidth = "300px";
+        divDemanda.appendChild(img);
       }
+
+      container.appendChild(divDemanda);
+    });
+  });
+
+
 
       const cardsContainer = document.getElementById("cardsDemanda");
       cardsContainer.innerHTML = "";
@@ -387,7 +464,8 @@ carregarDescricaoDemandas();
           responsavel: responsavel,
           tempoEstimado: tempoEstimado,
           dias: diasArray.join(', '),
-          tags: tags
+          tags: tags,
+          imagem: imagem,
         })
       })
       .then(res => res.json())
@@ -1031,3 +1109,59 @@ function abrirChat() {
     );
 }
 
+
+function autoSlide() {
+  const wrapper = document.getElementById('proximasDemandas');
+  const cardWidth = wrapper.querySelector('.slide-card').offsetWidth + 15; 
+
+  setInterval(() => {
+   
+    if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth) {
+      wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      wrapper.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    }
+  }, 3000); 
+}
+
+autoSlide();
+
+
+async function enviarImagem(event, demandaId) {
+  const file = event.target.files[0];
+  if (!file || !demandaId) return;
+
+  const formData = new FormData();
+  formData.append("imagem", file);
+
+  try {
+    const response = await fetch(`http://localhost:5000/upload/${demandaId}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.caminho) {
+      atualizarImagemDemanda(data.caminho);
+    } else {
+      console.error("Erro no retorno:", data.erro || "Caminho não encontrado");
+    }
+  } catch (err) {
+    console.error("Erro ao enviar imagem:", err);
+  }
+}
+
+function atualizarImagemDemanda(imagemUrl) {
+  const img = document.getElementById("imagemDemanda");
+  const addBtn = document.getElementById("adicionarImagem");
+
+  if (imagemUrl) {
+    img.src = imagemUrl;
+    img.style.display = "block";
+    addBtn.style.display = "none";
+  } else {
+    img.style.display = "none";
+    addBtn.style.display = "flex";
+  }
+}

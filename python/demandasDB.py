@@ -37,6 +37,7 @@ def criar_tabela():
             responsavel VARCHAR(100),
             tags TEXT,
             links TEXT,
+            imagem VARCHAR(255),
             data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
@@ -64,8 +65,8 @@ def registrar_rotas(app):
         count = 0
         for titulo, demanda in data.items():
             cursor.execute("""
-                INSERT INTO demandas (titulo, dias, descricao, prioridade, tempoEstimado, responsavel, tags, links)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO demandas (titulo, dias, descricao, prioridade, tempoEstimado, responsavel, tags, links, imagem)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (
                 titulo.strip(),  
                 demanda.get("dias"),
@@ -74,7 +75,8 @@ def registrar_rotas(app):
                 demanda.get("tempoEstimado"),
                 demanda.get("responsavel"),
                 ",".join(demanda.get("tags", [])) if isinstance(demanda.get("tags"), list) else demanda.get("tags"),
-                json.dumps(demanda.get("links", []))  
+                json.dumps(demanda.get("links", [])),
+                demanda.get("imagemURL"),
             ))
             count += 1
 
@@ -124,7 +126,7 @@ def registrar_rotas(app):
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE demandas
-            SET titulo=%s, dias=%s, descricao=%s, prioridade=%s, tempoEstimado=%s, responsavel=%s, tags=%s, links=%s
+            SET titulo=%s, dias=%s, descricao=%s, prioridade=%s, tempoEstimado=%s, responsavel=%s, tags=%s, links=%s, imagem=%s 
             WHERE id=%s
         """, (
             data.get('titulo'),
@@ -135,6 +137,7 @@ def registrar_rotas(app):
             data.get('responsavel'),
             ",".join(data.get('tags', [])),
             json.dumps(data.get('links', [])),
+            data.get('imagem'),
             id
         ))
         conn.commit()
@@ -155,8 +158,8 @@ def registrar_rotas(app):
         cursor = conn.cursor()
 
         cursor.execute("""
-            INSERT INTO demandas (titulo, dias, descricao, prioridade, tempoEstimado, responsavel, tags, links)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO demandas (titulo, dias, descricao, prioridade, tempoEstimado, responsavel, tags, links, imagem)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
             data.get("titulo"),
             data.get("dias"),
@@ -165,7 +168,8 @@ def registrar_rotas(app):
             data.get("tempoEstimado"),
             data.get("responsavel"),
             ",".join(data.get("tags", [])) if isinstance(data.get("tags"), list) else data.get("tags"),
-            json.dumps(data.get("links", []))
+            json.dumps(data.get("links", [])),
+            data.get("imagem"),
         ))
 
         conn.commit()

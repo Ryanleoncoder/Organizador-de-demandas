@@ -12,10 +12,7 @@ const chat = document.getElementById("chat");
             if(e.key === "Enter") enviarMensagem();
         });
 
-        limpar.addEventListener("click", () => {
-            chat.innerHTML = "";
-            localStorage.removeItem("chatHistorico");
-        });
+       
 
 
   async function enviarMensagem() {
