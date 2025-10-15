@@ -408,7 +408,7 @@ carregarDescricaoDemandas();
     }
 
    
-    function abrirFormularioEditarDemanda(nomeDemanda) {
+    async function abrirFormularioEditarDemanda(nomeDemanda) {
       if (document.getElementById('formNovaDemanda')) return;
 
       const demanda = descricaoDemandas[nomeDemanda];
@@ -476,7 +476,7 @@ carregarDescricaoDemandas();
       document.getElementById('fecharFormNovaDemanda').onclick =
       document.getElementById('btnCancelarDemanda').onclick = () => form.remove();
 
-      document.getElementById('btnSalvarDemanda').onclick = () => {
+      document.getElementById('btnSalvarDemanda').onclick = async () => {
         const responsavel = document.getElementById('inputResponsavel').value.trim();
         const prioridade = document.getElementById('inputPrioridade').value;
         const descricao = document.getElementById('inputDescricao').value.trim();
@@ -492,7 +492,6 @@ carregarDescricaoDemandas();
           return;
         }
 
-      
         let links = [];
         if (linksStr) {
           let erroLink = false;
@@ -507,42 +506,52 @@ carregarDescricaoDemandas();
           }
         }
 
+       
+        let id = null;
+        try {
+          const resListar = await fetch('http://localhost:5000/listar_demandas');
+          const demandas = await resListar.json();
+          const demandaSelecionada = demandas.find(d => d.titulo === nomeDemanda);
+          if (!demandaSelecionada) {
+            alert('Demanda não encontrada!');
+            return;
+          }
+          id = demandaSelecionada.id;
+        } catch (err) {
+          alert('Erro ao buscar demanda no banco.');
+          return;
+        }
 
-
-        fetch(`${API_URL}/editar_demanda/${id}`, {
-         method: 'PUT',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-          titulo: nomeDemanda,
-          dias: diasArray.join(', '),
-          descricao: descricao,
-          links: links,
-          prioridade: prioridade,
-          tempoEstimado: tempoEstimado,
-          responsavel: responsavel,
-          tags: tags
-         })
-        })
-        .then(res => res.json())
-        .then(data => {
-         if (data.mensagem) {
-           alert(data.mensagem);
-           form.remove();
-           atualizarDemandas();
-           mostrarDetalhes(nomeDemanda);
-         } else {
-           alert(data.erro || 'Erro ao editar demanda');
-         }
-        })
-        .catch(err => {
-        console.error('Erro ao editar demanda:', err);
-        alert('Erro ao editar demanda');
-       });
-
-        alert('Demanda editada com sucesso!');
-        form.remove();
-        atualizarDemandas();
-        fecharDetalhes();
+        
+        try {
+          const res = await fetch(`http://localhost:5000/editar_demanda/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              titulo: nomeDemanda,
+              dias: diasArray.join(', '),
+              descricao: descricao,
+              links: links,
+              prioridade: prioridade,
+              tempoEstimado: tempoEstimado,
+              responsavel: responsavel,
+              tags: tags,
+              imagem: imagem
+            })
+          });
+          const data = await res.json();
+          if (res.ok && data.mensagem) {
+            alert(data.mensagem);
+            form.remove();
+            atualizarDemandas();
+            mostrarDetalhes(nomeDemanda);
+          } else {
+            alert(data.erro || 'Erro ao editar demanda');
+          }
+        } catch (err) {
+          console.error('Erro ao editar demanda:', err);
+          alert('Erro ao editar demanda');
+        }
       };
     }
 

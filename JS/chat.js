@@ -1,4 +1,4 @@
- const chat = document.getElementById("chat");
+const chat = document.getElementById("chat");
         const input = document.getElementById("mensagem");
         const enviar = document.getElementById("enviar");
         const somEnvio = document.getElementById("somEnvio");
@@ -51,7 +51,11 @@
         function adicionarMensagem(texto, tipo, salvar) {
             const msgDiv = document.createElement("div");
             msgDiv.classList.add(tipo === "user" ? "user-msg" : "ia-msg");
-            msgDiv.innerText = texto;
+            if (tipo === "ia") {
+                msgDiv.innerHTML = marked.parse(texto); 
+            } else {
+                msgDiv.innerText = texto; 
+            }
             chat.appendChild(msgDiv);
             chat.scrollTop = chat.scrollHeight;
 
@@ -65,4 +69,5 @@
             }
         }
 
-        
+
+
