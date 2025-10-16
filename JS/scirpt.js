@@ -228,29 +228,29 @@ preencherProximasDemandas();
       document.getElementById("tagsDemanda").innerHTML = demanda.tags && demanda.tags.length
         ? `<strong>Tags:</strong> ${demanda.tags.map(tag => `<span style="background:#eee; color:#660099; border-radius:6px; padding:2px 8px; margin-right:4px; font-size:0.95em;">${tag}</span>`).join('')}` : '';
 
-fetch(`${API_URL}/listar_demandas`)
-  .then(res => res.json())
-  .then(demandas => {
-    const container = document.getElementById("containerDemandas");
-    container.innerHTML = "";
+      fetch(`${API_URL}/listar_demandas`)
+        .then(res => res.json())
+        .then(demandas => {
+          const container = document.getElementById("containerDemandas");
+          container.innerHTML = "";
 
-    demandas.forEach(demanda => {
-      const divDemanda = document.createElement("div");
+          demandas.forEach(demanda => {
+            const divDemanda = document.createElement("div");
 
-      const titulo = document.createElement("h3");
-      titulo.textContent = demanda.nome;
-      divDemanda.appendChild(titulo);
+            const titulo = document.createElement("h3");
+            titulo.textContent = demanda.nome;
+            divDemanda.appendChild(titulo);
 
-      if (demanda.imagem) {  
-        const img = document.createElement("img");
-        img.src = demanda.imagem;
-        img.style.maxWidth = "300px";
-        divDemanda.appendChild(img);
-      }
+            if (demanda.imagem) {  
+              const img = document.createElement("img");
+              img.src = demanda.imagem;
+              img.style.maxWidth = "300px";
+              divDemanda.appendChild(img);
+            }
 
-      container.appendChild(divDemanda);
-    });
-  });
+            container.appendChild(divDemanda);
+          });
+        });
 
 
 
@@ -840,30 +840,30 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
   // -------- FUNÇÃO PARA CARREGAR DEMANDAS NA TELA --------
-  async function carregarDemandas() {
-    try {
-      const res = await fetch('/listar_demandas');
-      const demandas = await res.json();
-      console.log(demandas);
+    async function carregarDemandas() {
+      try {
+        const res = await fetch(`${API_URL}/listar_demandas`);
+        const demandas = await res.json();
+        console.log(demandas);
 
 
-      const container = document.getElementById('listaDemandas');
-      if (!container) return;
-      container.innerHTML = '';
-      demandas.forEach(d => {
-        const div = document.createElement('div');
-        div.textContent = `${d.titulo} - Responsável: ${d.responsavel} - Prioridade: ${d.prioridade}`;
-        container.appendChild(div);
-      });
+        const container = document.getElementById('listaDemandas');
+        if (!container) return;
+        container.innerHTML = '';
+        demandas.forEach(d => {
+          const div = document.createElement('div');
+          div.textContent = `${d.titulo} - Responsável: ${d.responsavel} - Prioridade: ${d.prioridade}`;
+          container.appendChild(div);
+        });
 
-    } catch (err) {
-      console.error('Erro ao carregar demandas:', err);
+      } catch (err) {
+        console.error('Erro ao carregar demandas:', err);
+      }
     }
-  }
 
   
-  carregarDemandas();
-});
+    carregarDemandas();
+  });
 
 
     // --------- Matriz VISUAL ---------
