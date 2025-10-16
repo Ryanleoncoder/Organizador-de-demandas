@@ -27,24 +27,80 @@ def criar_tabela():
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS demandas (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            titulo VARCHAR(255),
-            dias VARCHAR(100),
-            descricao TEXT,
-            prioridade VARCHAR(50),
-            tempoEstimado VARCHAR(50),
-            responsavel VARCHAR(100),
-            tags TEXT,
-            links TEXT,
-            imagem VARCHAR(255),
-            data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    CREATE TABLE IF NOT EXISTS demandas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        titulo VARCHAR(255),
+        dias VARCHAR(100),
+        descricao TEXT,
+        prioridade VARCHAR(50),
+        tempoEstimado VARCHAR(50),
+        responsavel VARCHAR(100),
+        tags TEXT,
+        links TEXT,
+        imagem VARCHAR(255),
+        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
     conn.commit()
     cursor.close()
     conn.close()
 
+def criar_tabela_user():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuarios (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        cargo VARCHAR(100),
+        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+def criar_tabela_demandas_users():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS demandas_usuarios (
+        demanda_id INT NOT NULL,
+        usuario_id INT NOT NULL,
+        PRIMARY KEY(demanda_id, usuario_id),
+        FOREIGN KEY(demanda_id) REFERENCES demandas(id) ON DELETE CASCADE,
+        FOREIGN KEY(usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+        )
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+def criar_tabela_dealhes():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS detalhes_demandas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        demanda_id INT NOT NULL,
+        passo_a_passo TEXT,
+        anexos TEXT,
+        observacoes TEXT,
+        comentarios TEXT,
+        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (demanda_id) REFERENCES demandas(id) ON DELETE CASCADE
+    )
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+    
 def registrar_rotas(app):
  @app.route("/importar_demandas", methods=["POST"])
  def importar_demandas():
@@ -180,6 +236,7 @@ def registrar_rotas(app):
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
+
 
 
 if __name__ == "__main__":
