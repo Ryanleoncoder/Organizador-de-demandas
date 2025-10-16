@@ -1135,7 +1135,7 @@ async function enviarImagem(event, demandaId) {
   formData.append("imagem", file);
 
   try {
-    const response = await fetch(`http://localhost:5000/upload/${demandaId}`, {
+    const response = await fetch(`${API_URL}/upload/${demandaId}`, {
       method: "POST",
       body: formData,
     });
