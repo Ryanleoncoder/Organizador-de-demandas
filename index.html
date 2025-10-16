@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
  
 <div id="loadingDemandas" style="display:none;">
@@ -35,7 +36,8 @@
     <img src="assets/images/logo.png" alt="Logo">
   </a>
   <header style="display:flex; align-items:center; justify-content:space-between; background-color:#050007; color:white; padding:20px 40px; font-size:1.5rem; padding-left:120px;">
-  <span>📋 Minhas tarefas</span>
+  <span>📋 Organizador de Demandas</span>
+  <button id="openModal">📋</button> 
   
   
 
@@ -186,10 +188,21 @@
     <div style="background:#fff; border-radius:14px; max-width:400px; width:94vw; padding:26px 18px; box-shadow:0 2px 18px rgba(0,0,0,0.12); position:relative;">
       <button onclick="fecharModalhoje()" style="position:absolute; top:16px; right:20px; background:none; border:none; color:#660099; font-weight:bold; font-size:1.1em; text-decoration:underline; cursor:pointer;">Fechar</button>
       <h3 style="color:#660099; margin-bottom:18px;">Demandas Hoje</h3>
+      <button id="openModal2">Gerenciador demandas</button> 
       <ul id="listahojeModal" style="padding-left:0; list-style:none; margin:0;"></ul>
     </div>
   </div>
   <div>
+  <div id="demandasModal" class="modal" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.3); justify-content:center; align-items:center; z-index:5000;">
+    <div class="modal-content" style="background:#fff; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative;">
+      <button onclick="fecharModaldemandas()" style="position:absolute; top:16px; right:20px; background:none; border:none; color:#660099; font-weight:bold; font-size:1.1em; text-decoration:underline; cursor:pointer;">Fechar</button>
+      <h2>Marque as demandas concluídas</h2>
+      <ul id="demandasList"></ul>
+      <button id="saveDemandas">Salvar</button>
+    </div>
+  </div>
+
+
   
 <script src="JS/config.js"></script>
 <script src="JS/scirpt.js"></script>

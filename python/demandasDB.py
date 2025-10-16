@@ -99,7 +99,21 @@ def criar_tabela_dealhes():
     cursor.close()
     conn.close()
 
-
+def controle_demanda():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS controle_demandas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    demanda_id INT NOT NULL,
+    data DATE NOT NULL,
+    concluida BOOLEAN DEFAULT FALSE,
+    observacoes TEXT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (demanda_id) REFERENCES demandas(id) ON DELETE CASCADE,
+    UNIQUE KEY (demanda_id, data)  -- evita duplicidade de registro para o mesmo dia
+   )
+    """)
     
 def registrar_rotas(app):
  @app.route("/importar_demandas", methods=["POST"])

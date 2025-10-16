@@ -1165,3 +1165,49 @@ function atualizarImagemDemanda(imagemUrl) {
     addBtn.style.display = "flex";
   }
 }
+
+function abrirModalCheckDemandasHoje() {
+  const diaHoje = getDiaSemanaAtual();
+  const demandasHoje = Object.entries(descricaoDemandas)
+    .filter(([nome, d]) => d.diasArray.includes(diaHoje))
+    .map(([nome, d]) => nome);
+
+  if (!demandasHoje.length) {
+    alert("Não há demandas para hoje.");
+    return;
+  }
+
+  const modal = document.getElementById('demandasModal');
+  const lista = document.getElementById('demandasList');
+
+  
+  lista.innerHTML = '';
+
+  demandasHoje.forEach(nome => {
+    const li = document.createElement('li');
+    li.innerHTML = `<label><input type="checkbox" class="chkDemandaHoje" value="${nome}"> ${nome}</label>`;
+    lista.appendChild(li);
+  });
+
+ 
+  modal.style.display = 'flex';
+}
+
+
+function fecharModaldemandas() {
+  const modal = document.getElementById('demandasModal');
+  modal.style.display = 'none';
+}
+
+// Salvar demandas selecionadas
+document.getElementById('saveDemandas').onclick = () => {
+  const checkeds = Array.from(document.querySelectorAll('.chkDemandaHoje:checked'))
+                        .map(cb => cb.value);
+  console.log("Demandas concluídas hoje:", checkeds);
+  alert(`Você marcou ${checkeds.length} demanda(s) como concluída(s).`);
+  fecharModaldemandas();
+};
+
+// Chamar o modal ao clicar no botão
+document.getElementById('openModal').onclick = abrirModalCheckDemandasHoje;
+document.getElementById('openModal2').onclick = abrirModalCheckDemandasHoje;
