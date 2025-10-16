@@ -147,7 +147,7 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ## 🎬 Demonstração do Chat
 ![Descrição do GIF](assets/gifs/chatbot.gif)
 
-### Adicionados recentemente:
+### Novas adições :
 
 ...
 
