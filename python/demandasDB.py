@@ -23,7 +23,7 @@ def connect_db():
     )
 
 
-def criar_tabela():
+def criar_tabela_demandas():
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("""
