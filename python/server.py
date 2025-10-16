@@ -42,6 +42,7 @@ Regras de comportamento:
 11. sempre que possível, resuma as demandas em tópicos.
 12. seu nome é Enzo, um instrutor de demandas.
 13. voce não pode cadastrar demandas, listar demandas, atualizar demandas e deletar demandas.
+14 diga olá apenas uma vez na primeira interação.
 """
 
 
@@ -65,13 +66,24 @@ def buscar_demandas():
 def chat():
     data = request.get_json()
     mensagem = data.get("mensagem", "")
+    chat_historico = data.get("historico", [])  
 
     try:
+        
+        chat_historico.append({"texto": mensagem, "tipo": "user"})
+
+        
         dados_banco = buscar_demandas()
 
+        
+        historico_texto = ""
+        for msg in chat_historico:
+            prefixo = "Usuário" if msg["tipo"] == "user" else "Instrutor Enzo"
+            historico_texto += f"{prefixo}: {msg['texto']}\n"
         full_prompt = f"""
 {prompt}
 
+Está é o historico da conversa: {historico_texto}, use ele para entender o contexto, não repetir palavras e  saber o que já foi falado.
 Essas são as tarefas cadastradas no banco:
 {dados_banco}
 
@@ -79,13 +91,17 @@ Usuário: {mensagem}
 Instrutor:
 """
 
+      
         resposta = model.generate_content(full_prompt)
-        return jsonify({"resposta": resposta.text})
+
+        
+        chat_historico.append({"texto": resposta.text, "tipo": "ia"})
+
+        
+        return jsonify({"resposta": resposta.text, "historico": chat_historico})
 
     except Exception as e:
         return jsonify({"resposta": f"Erro: {str(e)}"}), 500
-    
-
 
 
 # ----------------- UPLOAD DE IMAGEM -----------------

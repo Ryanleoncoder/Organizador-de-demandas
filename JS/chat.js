@@ -12,15 +12,22 @@ const chat = document.getElementById("chat");
             if(e.key === "Enter") enviarMensagem();
         });
 
+         // Limpa o LocalStorage ao iniciar a página
+        window.addEventListener('load', () => {
+            localStorage.clear();
+        });
+
        
 
 
-  async function enviarMensagem() {
+ async function enviarMensagem() {
     const msg = input.value.trim();
     if (!msg) return;
 
+    
     adicionarMensagem(msg, "user", true);
     input.value = "";
+
 
     const typingDiv = document.createElement("div");
     typingDiv.classList.add("typing");
@@ -29,20 +36,31 @@ const chat = document.getElementById("chat");
     chat.scrollTop = chat.scrollHeight;
 
     try {
+    
+        const historico = JSON.parse(localStorage.getItem("chatHistorico")) || [];
+
+
         const response = await fetch(`${API_URL}/chat`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensagem: msg }),
+            body: JSON.stringify({ mensagem: msg, historico })
         });
+
         const data = await response.json();
         chat.removeChild(typingDiv);
+
         adicionarMensagem("Instrutor Enzo: " + data.resposta, "ia", true);
+
+
+        localStorage.setItem("chatHistorico", JSON.stringify(data.historico));
+
     } catch (error) {
         chat.removeChild(typingDiv);
         adicionarMensagem("❌ Erro ao se conectar com a IA.", "ia", true);
         console.error(error);
     }
-  }
+}
+
 
 
         function adicionarMensagem(texto, tipo, salvar) {
