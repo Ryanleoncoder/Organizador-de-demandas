@@ -116,15 +116,20 @@ organizador-demandas/
 ```
 🤖 Instrutor de Demandas (Chat)
 
-- O chat é configurado com um prompt inicial forte:
+- O chat é configurado com um prompt inicial forte, garantindo respostas consistentes e detalhadas.
 
-- Responde de forma educada, clara, objetiva e amigável
+- Responde de forma educada, clara, objetiva e amigável.
 
-- Sabe dizer “não sei” quando necessário
+- Sabe dizer “não sei” quando a informação não estiver disponível.
 
-- Dá exemplos práticos e sugestões úteis
+- Dá exemplos práticos e sugestões úteis para execução de tarefas.
 
-- Ajuda a priorizar e organizar demandas
+- Ajuda a priorizar e organizar demandas com base nos dados cadastrados no banco de dados MySQL.
+
+- Mantém o contexto da conversa: usa localStorage no navegador para lembrar das interações anteriores, permitindo respostas mais coesas e contínuas.
+
+- Sempre fornece resumos em tópicos quando necessário e utiliza emojis leves para tornar a conversa mais agradável.
+
 
 Exemplo de interação:🤖 Instrutor de Demandas (Chat)
 
@@ -138,6 +143,10 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 ## 🎬 Demonstração do Chat
 ![Descrição do GIF](assets/gifs/chatbot.gif)
+
+### Adicionados recentemente:
+
+...
 
 ## 📖 Licença
 
