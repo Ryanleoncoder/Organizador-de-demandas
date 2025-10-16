@@ -80,7 +80,7 @@ GEMINI_API_KEY=SUA_CHAVE
 4. Rode o backend:
 
 ```bash
-python python/server.py
+python python/main.py
 ```
 organizador-demandas/
 ## Estrutura do Projeto
@@ -90,6 +90,8 @@ organizador-demandas/
 ├─ python/
 │ ├─ server.py # Backend em Python (Flask)
 │ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│ └─ main.py #inicia o backend
+│ └─ uploads # testando para conseguir enviar imagens para o backend
 │
 ├─ index.html # Front-end principal do painel e chat
 │
@@ -112,19 +114,24 @@ organizador-demandas/
 │ └─ chatbot.gif
 ├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
 ├─ README.md # Documentação do projeto
-└─ demandas.db
+
 ```
 🤖 Instrutor de Demandas (Chat)
 
-- O chat é configurado com um prompt inicial forte:
+- O chat é configurado com um prompt inicial forte, garantindo respostas consistentes e detalhadas.
 
-- Responde de forma educada, clara, objetiva e amigável
+- Responde de forma educada, clara, objetiva e amigável.
 
-- Sabe dizer “não sei” quando necessário
+- Sabe dizer “não sei” quando a informação não estiver disponível.
 
-- Dá exemplos práticos e sugestões úteis
+- Dá exemplos práticos e sugestões úteis para execução de tarefas.
 
-- Ajuda a priorizar e organizar demandas
+- Ajuda a priorizar e organizar demandas com base nos dados cadastrados no banco de dados MySQL.
+
+- Mantém o contexto da conversa: usa localStorage no navegador para lembrar das interações anteriores, permitindo respostas mais coesas e contínuas.
+
+- Sempre fornece resumos em tópicos quando necessário e utiliza emojis leves para tornar a conversa mais agradável.
+
 
 Exemplo de interação:🤖 Instrutor de Demandas (Chat)
 
@@ -139,6 +146,13 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ## 🎬 Demonstração do Chat
 ![Descrição do GIF](assets/gifs/chatbot.gif)
 
+### Adicionados recentemente:
+
+...
+
 ## 📖 Licença
 
 MIT License © 2025 Ryan Leonel
+
+This project uses the marked.js library (https://github.com/markedjs/marked) under the MIT License.
+Copyright (c) 2011-2024 MarkedJS
