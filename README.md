@@ -80,7 +80,7 @@ GEMINI_API_KEY=SUA_CHAVE
 4. Rode o backend:
 
 ```bash
-python python/server.py
+python python/main.py
 ```
 organizador-demandas/
 ## Estrutura do Projeto
@@ -90,6 +90,8 @@ organizador-demandas/
 ├─ python/
 │ ├─ server.py # Backend em Python (Flask)
 │ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│ └─ main.py #inicia o backend
+│ └─ uploads # testando para conseguir enviar imagens para o backend
 │
 ├─ index.html # Front-end principal do painel e chat
 │
@@ -112,7 +114,7 @@ organizador-demandas/
 │ └─ chatbot.gif
 ├─ .env # Variáveis de ambiente (ex: API Key do Gemini)
 ├─ README.md # Documentação do projeto
-└─ demandas.db
+
 ```
 🤖 Instrutor de Demandas (Chat)
 
@@ -151,3 +153,6 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 ## 📖 Licença
 
 MIT License © 2025 Ryan Leonel
+
+This project uses the marked.js library (https://github.com/markedjs/marked) under the MIT License.
+Copyright (c) 2011-2024 MarkedJS
