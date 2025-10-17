@@ -49,17 +49,40 @@ Regras de comportamento:
 def buscar_demandas():
     conn = connect_db()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT titulo, dias, prioridade, tempoEstimado, responsavel, descricao, tags FROM demandas")
+    
+    cursor.execute("""
+        SELECT 
+            d.titulo,
+            d.dias,
+            d.prioridade,
+            d.tempoEstimado,
+            d.responsavel,
+            d.descricao,
+            d.tags,
+            dd.passo_a_passo,
+            dd.anexos,
+            dd.observacoes,
+            dd.comentarios
+        FROM demandas d
+        LEFT JOIN detalhes_demandas dd
+            ON d.id = dd.demanda_id
+    """)
+    
     demandas = cursor.fetchall()
     cursor.close()
     conn.close()
 
-   
     texto_demandas = "\n".join([
-        f"- {d['titulo']} ({d['prioridade']}) — {d['dias']} — Resp: {d['responsavel']} — Tempo: {d['tempoEstimado']} — Tags: {d['tags']} — Desc: {d['descricao']}"
+        f"- {d['titulo']} ({d['prioridade']}) — {d['dias']} dias — Resp: {d['responsavel']} — Tempo: {d['tempoEstimado']} — Tags: {d['tags']} — Desc: {d['descricao']}" +
+        (f"\n     Passo a passo/detalhes: {d['passo_a_passo']}" if d['passo_a_passo'] else "") +
+        (f"\n    Anexos: {d['anexos']}" if d['anexos'] else "") +
+        (f"\n    Observações: {d['observacoes']}" if d['observacoes'] else "") +
+        (f"\n    Comentários: {d['comentarios']}" if d['comentarios'] else "")
         for d in demandas
     ])
+    
     return texto_demandas
+
 
 
 @app.route("/chat", methods=["POST"])

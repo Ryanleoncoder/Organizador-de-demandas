@@ -111,7 +111,7 @@ def controle_demanda():
     observacoes TEXT,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (demanda_id) REFERENCES demandas(id) ON DELETE CASCADE,
-    UNIQUE KEY (demanda_id, data)  -- evita duplicidade de registro para o mesmo dia
+    UNIQUE KEY (demanda_id, data)  
    )
     """)
     
