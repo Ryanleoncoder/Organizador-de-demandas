@@ -156,7 +156,6 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 <img src="assets/images/check_list_modal.PNG" alt="check_list_modal" width="250" /> <img src="assets/images/check_list.PNG" alt="check_list" width="100" />  <img src="assets/images/check_list2.PNG" alt="check_list2" width="200" />
 
-
 ainda em desenvolvimento (só é visual por enquanto)
 
 
