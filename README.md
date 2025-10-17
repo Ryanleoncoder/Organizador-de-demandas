@@ -88,19 +88,25 @@ python python/main.py
 organizador-demandas/
 ├─ python/
 │ ├─ server.py # Backend em Python (Flask)
-│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (MySQL)
 │ └─ main.py #inicia o backend
-│ └─ uploads # testando para conseguir enviar imagens para o backend
+│ └─ uploads/ # testando para conseguir enviar imagens para o backend
 │
 ├─ index.html # Front-end principal do painel e chat
 │
+├─ chat.html
+│
+├─ .gitignore
+│
 ├─ css/
 │ └─ style.css # Estilos do painel e do chat
-│
+│  └─ chat.css
+│ 
 ├─ js/
 │ ├─ script.js # Lógica do painel
 │ └─ chat.js # Lógica do chat com IA
-│
+│ └─ config.js  # ocultado pelo .gitignore
+│   
 ├─ assets/
 │ ├─ audio/
 │ │ ├─ send.mp3 # Som de envio do chat
@@ -108,6 +114,7 @@ organizador-demandas/
 │ │
 │ └─ images/
 │ └─ logo.png # Logo e outras imagens do projeto
+│ └─ error-server.png
 │ │
 │ └─ gifs/
 │ └─ chatbot.gif
