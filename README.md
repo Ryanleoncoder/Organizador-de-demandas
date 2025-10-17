@@ -160,8 +160,9 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 - Upload de imagens: agora é possível adicionar um banner às demandas, tornando a visualização mais intuitiva e personalizada.
 
-  <img src="assets/images/upload.PNG" alt="upload" width="250" />
-
+<img src="assets/images/upload.PNG" alt="upload" width="250" />
+  
+> ainda em desenvolvimento
 ---
 ## 📖 Licença
 
