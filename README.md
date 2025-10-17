@@ -100,7 +100,7 @@ organizador-demandas/
 │
 ├─ css/
 │ └─ style.css # Estilos do painel e do chat
-│  └─ chat.css
+│ └─ chat.css
 │ 
 ├─ js/
 │ ├─ script.js # Lógica do painel
