@@ -1007,7 +1007,7 @@
   margin-bottom: 400px;
 }
 
-/* Custom scroll para lista */
+
 .modal-content ul::-webkit-scrollbar {
   width: 6px;
 }
