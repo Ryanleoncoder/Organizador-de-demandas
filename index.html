@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel de Demandas</title>
+  <title>Organizador demandas</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/images/logo.png" type="image/png">
 
 </head>
 
 <body>
- 
+
 <div id="loadingDemandas" style="display:none;">
   <div class="loading-overlay">
     <div class="spinner"></div>
@@ -32,15 +33,12 @@
 </div>
 </div>
   <div id="dataHoraAtual"></div>
+  
   <a href="#" id="logoTopo" title="Recarregar página" onclick="location.reload(); return false;">
     <img src="assets/images/logo.png" alt="Logo">
   </a>
   <header style="display:flex; align-items:center; justify-content:space-between; background-color:#050007; color:white; padding:20px 40px; font-size:1.5rem; padding-left:120px;">
-  <span>📋 Organizador de Demandas</span>
-  <button id="openModal">📋</button> 
-  
-  
-
+  <span>Organizador de Demandas</span>
   <div id="buscaDemandasBox" style="display:flex; justify-content:center; flex:1;">
     <input type="text" id="buscaDemandas" 
            placeholder="Buscar demanda" 
@@ -82,7 +80,6 @@
           <div id="demandasAtivas">
             <strong>0</strong><br>Demandas Ativas
             <div class="card-emoji">🔥</div>
-            
           </div>
           <div id="demandasHoje">
             <strong>0</strong><br>Demandas para Hoje
@@ -131,7 +128,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Modal Matriz -->
   <div id="modalFluxograma">
     <div style="background:#fff; border-radius:14px; max-width:90vw; width:900px; padding:32px 18px; box-shadow:0 2px 18px rgba(0,0,0,0.12); position:relative;">
@@ -203,8 +200,13 @@
   </div>
 
 
-  
+  <div class="button-container">
+  <button id="openModal">📋</button>
+  <span id="notification">3</span> <!-- ver isso depois -->
+</div>
+
 <script src="JS/config.js"></script>
 <script src="JS/scirpt.js"></script>
+
 </body>
 </html>

@@ -998,14 +998,13 @@
   text-align: center;
 }
 
-/* Lista dentro do modal */
-/* Lista dentro do modal */
+
 .modal-content ul {
   list-style: none;
   padding-left: 0;
   max-height: 320px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: 400px;
 }
 
 /* Custom scroll para lista */
@@ -1018,7 +1017,7 @@
   border-radius: 3px;
 }
 
-/* Item da lista com bloco moderno */
+
 .modal-content ul li {
   display: flex;
   align-items: center;
@@ -1039,7 +1038,7 @@
 
 /* Checkbox estilizado */
 .modal-content ul li input[type="checkbox"] {
-  appearance: none; /* Remove estilo padrão */
+  appearance: none;
   width: 20px;
   height: 20px;
   border: 2px solid #ccc;
@@ -1107,33 +1106,44 @@
   transform: scale(1.05);
 }
 
-#openModal {
-  background: #660099;      
-  color: #fff;              
+ #openModal {
+  padding: 15px;
+  font-size: 24px;
+  border-radius: 50%;
+  background-color: #660099;
+  color: white;
   border: none;
-  border-radius: 50%;       
-  width: 60px;               
-  height: 60px;
-  font-size: 1.5em;           
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(102,0,153,0.25);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-#openModal:hover {
-  background: #4b006e;        
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(102,0,153,0.35);
+
+
+
+#notification {
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 7px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-#openModal:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 8px rgba(102,0,153,0.2);
-}
 
+.button-container:hover {
+  transform: scale(1.2); 
+}
+  .button-container {
+    position: fixed;
+    bottom: 80px;
+    right: 55px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
 
 /* botao 2 modal */
 
