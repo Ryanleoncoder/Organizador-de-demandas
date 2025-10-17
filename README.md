@@ -81,7 +81,7 @@ GEMINI_API_KEY=SUA_CHAVE
 ```bash
 python python/main.py
 ```
-organizador-demandas/
+
 ## Estrutura do Projeto
 
 ```js
