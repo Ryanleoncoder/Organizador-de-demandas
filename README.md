@@ -81,26 +81,32 @@ GEMINI_API_KEY=SUA_CHAVE
 ```bash
 python python/main.py
 ```
-organizador-demandas/
+
 ## Estrutura do Projeto
 
 ```js
 organizador-demandas/
 ├─ python/
 │ ├─ server.py # Backend em Python (Flask)
-│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (SQLite)
+│ └─ demandasDB.py # Modelagem e manipulação do banco de dados (MySQL)
 │ └─ main.py #inicia o backend
-│ └─ uploads # testando para conseguir enviar imagens para o backend
+│ └─ uploads/ # testando para conseguir enviar imagens para o backend
 │
 ├─ index.html # Front-end principal do painel e chat
 │
+├─ chat.html
+│
+├─ .gitignore
+│
 ├─ css/
 │ └─ style.css # Estilos do painel e do chat
-│
+│ └─ chat.css
+│ 
 ├─ js/
 │ ├─ script.js # Lógica do painel
 │ └─ chat.js # Lógica do chat com IA
-│
+│ └─ config.js  # ocultado pelo .gitignore
+│   
 ├─ assets/
 │ ├─ audio/
 │ │ ├─ send.mp3 # Som de envio do chat
@@ -108,6 +114,7 @@ organizador-demandas/
 │ │
 │ └─ images/
 │ └─ logo.png # Logo e outras imagens do projeto
+│ └─ error-server.png
 │ │
 │ └─ gifs/
 │ └─ chatbot.gif
@@ -156,9 +163,14 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 <img src="assets/images/check_list_modal.PNG" alt="check_list_modal" width="250" /> <img src="assets/images/check_list.PNG" alt="check_list" width="100" />  <img src="assets/images/check_list2.PNG" alt="check_list2" width="200" />
 
-ainda em desenvolvimento (só é visual por enquanto)
+> ainda em desenvolvimento (só é visual por enquanto)
 
+- Upload de imagens: agora é possível adicionar um banner às demandas, tornando a visualização mais intuitiva e personalizada.
 
+<img src="assets/images/upload.PNG" alt="upload" width="250" />
+  
+> ainda em desenvolvimento
+---
 ## 📖 Licença
 
 MIT License © 2025 Ryan Leonel
