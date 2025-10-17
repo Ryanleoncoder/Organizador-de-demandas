@@ -15,13 +15,11 @@
 
 ## Descrição
 
-O Organizador de Demandas é um sistema completo para gerenciar tarefas, responsabilidades e prioridades de uma equipe ou projeto.
+O Organizador de Demandas é um sistema completo para gerenciar tarefas, responsabilidades e prioridades de equipes ou projetos.
 
-Cada demanda pode conter vídeos, links úteis, caminhos de pastas de rede e arquivos necessários — tudo em um só lugar.
-Essas informações complementares ajudam a garantir a continuidade das atividades, sendo especialmente úteis em situações de handover, férias ou quando uma tarefa precisa ser executada por alguém que não participou de sua criação.
+Cada demanda pode incluir vídeos, links úteis, caminhos de pastas de rede e arquivos necessários — tudo centralizado em um só lugar. Essas informações complementares garantem a continuidade das atividades, sendo especialmente úteis em situações de handover, férias ou quando uma tarefa precisa ser executada por alguém que não participou de sua criação.
 
-Além disso, o sistema conta com um chat integrado com IA, que ajuda a esclarecer dúvidas, fornecer orientações e apoiar a execução das demandas, tornando o gerenciamento ainda mais eficiente.
-
+Além disso, o sistema conta com um chat integrado com IA, capaz de esclarecer dúvidas, fornecer orientações e apoiar a execução das demandas, tornando o gerenciamento mais ágil e eficiente.
 
 
 Ele integra:
@@ -149,7 +147,17 @@ Bot: Hoje você deve focar nas tarefas com **alta prioridade** e prazo para hoje
 
 ### Novas adições :
 
-...
+- Chat com instrutor IA
+
+- agora o sistema exibe uma mensagem de erro de servidor quando o servidor não responde, garantindo que você saiba imediatamente se houver algum problema de conexão.
+<img src="assets/images/error-server.png" alt="error-server" width="200" /> 
+
+- Checklist para marcar demandas concluídas, ajudando a acompanhar o progresso de forma prática e visual.
+
+<img src="assets/images/check_list_modal.PNG" alt="check_list_modal" width="250" /> <img src="assets/images/check_list.PNG" alt="check_list" width="100" />  <img src="assets/images/check_list2.PNG" alt="check_list2" width="200" />
+
+ainda em desenvolvimento (só é visual por enquanto)
+
 
 ## 📖 Licença
 
